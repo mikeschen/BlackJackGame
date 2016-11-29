@@ -73,6 +73,7 @@ namespace BlackJack
                     Console.WriteLine(total);
                 }
             }
+
             public static void Hit(int total)
             {
                     var rnd = new Random();
@@ -82,7 +83,7 @@ namespace BlackJack
                     Console.WriteLine(myDeck.cards[result].Face + " of " + myDeck.cards[result].Suit);
                     if (total > 21)
                     {
-                        Console.WriteLine(total + " Bust!!!");
+                        Console.WriteLine(total + " Bust!!!!");
                     }
                     else
                     {
