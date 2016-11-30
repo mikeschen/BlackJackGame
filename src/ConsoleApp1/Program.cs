@@ -61,45 +61,31 @@ namespace BlackJack
                 result = rnd.Next(52);
                 total += myDeck.cards[result].Value;
                 Console.WriteLine(myDeck.cards[result].Face + " of " + myDeck.cards[result].Suit);
-                Console.WriteLine("hit or stand?");
-                var response = Console.ReadLine();
-                if (response == "hit")
-                {
-                    Hit(total);
-                }
-                else if (response == "stand")
-                {
-                    Console.WriteLine("Player One Stands");
-                    Console.WriteLine(total);
-                }
+                Hit(total);
             }
 
             public static void Hit(int total)
             {
+                Console.WriteLine("hit or stand?");
+                var response = Console.ReadLine();
+                if (response == "hit") { 
                     var rnd = new Random();
                     var result = rnd.Next(52);
                     Deck myDeck = new Deck();
                     total += myDeck.cards[result].Value;
                     Console.WriteLine(myDeck.cards[result].Face + " of " + myDeck.cards[result].Suit);
-                    if (total > 21)
+                        if (total > 21)
+                        {
+                            Console.WriteLine(total + " Bust!!!!");
+                        } else
+                        {
+                          Hit(total);
+                        }
+                    } else if (response == "stand")
                     {
-                        Console.WriteLine(total + " Bust!!!!");
+                    Console.WriteLine(total + " Stand");
                     }
-                    else
-                    {
-                        Console.WriteLine("hit or stand?");
-                        var response = Console.ReadLine();
-                        if (response == "hit")
-                    {
-                        Hit(total);
-                    }
-                    else if (response == "stand")
-                    {
-                        Console.WriteLine("Player One Stands");
-                        Console.WriteLine(total);
-                    }
-                }
-                }
+            }
         }
     }
 }
