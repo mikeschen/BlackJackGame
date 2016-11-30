@@ -41,6 +41,18 @@ namespace BlackJack
                     }
                 }
             }
+            Random rnd = new Random();
+            int originalCards = cards.Count;
+            while (originalCards > 1)
+            {
+                originalCards--;
+                int nextCard = rnd.Next(originalCards + 1);
+                Card card = cards[nextCard];
+                cards[nextCard] = cards[originalCards];
+                cards[originalCards] = card;
+                Console.WriteLine("card" + card);
+                Console.WriteLine("cardsorigin" + cards[originalCards]);
+            }
         }
 
         public class Program
@@ -55,13 +67,13 @@ namespace BlackJack
             {
                 int total = 0;
                 Deck myDeck = new Deck();
-                var rnd = new Random();
-                var result = rnd.Next(52);
-                Console.WriteLine(myDeck.cards[result].Face + " of " + myDeck.cards[result].Suit);
-                total = myDeck.cards[result].Value;
-                result = rnd.Next(52);
-                total += myDeck.cards[result].Value;
-                Console.WriteLine(myDeck.cards[result].Face + " of " + myDeck.cards[result].Suit);
+                Card firstPlayerCard = myDeck.cards[0];
+                Card secondPlayerCard = myDeck.cards[1];
+                Console.WriteLine(firstPlayerCard.Face + " of " + firstPlayerCard.Suit);
+                total = firstPlayerCard.Value;
+                total += secondPlayerCard.Value;
+                Console.WriteLine(secondPlayerCard.Face + " of " + secondPlayerCard.Suit);
+                Console.WriteLine("Total: " + total);
                 return total;
             }
 
@@ -75,17 +87,17 @@ namespace BlackJack
                     Deck myDeck = new Deck();
                     total += myDeck.cards[result].Value;
                     Console.WriteLine(myDeck.cards[result].Face + " of " + myDeck.cards[result].Suit);
-                        if (total > 21)
-                        {
-                            Console.WriteLine(total + " Bust!!!!");
-                        } else
-                        {
-                          Hit(total);
-                        }
-                    } else if (response == "stand")
+                    if (total > 21)
                     {
-                    Console.WriteLine(total + " Stand");
+                        Console.WriteLine(total + " Bust!!!!");
+                    } else
+                    {
+                        Hit(total);
                     }
+                } else if (response == "stand")
+                {
+                Console.WriteLine(total + " Stand");
+                }
             }
         }
     }
