@@ -47,10 +47,11 @@ namespace BlackJack
         {
             public static void Main(string[] args)
             {
-                Deal();
+                int total = Deal();
+                Hit(total);
                 Console.ReadLine();
             }
-            public static void Deal()
+            public static int Deal()
             {
                 int total = 0;
                 Deck myDeck = new Deck();
@@ -61,7 +62,7 @@ namespace BlackJack
                 result = rnd.Next(52);
                 total += myDeck.cards[result].Value;
                 Console.WriteLine(myDeck.cards[result].Face + " of " + myDeck.cards[result].Suit);
-                Hit(total);
+                return total;
             }
 
             public static void Hit(int total)
