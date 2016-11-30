@@ -50,17 +50,16 @@ namespace BlackJack
                 Card card = cards[nextCard];
                 cards[nextCard] = cards[originalCards];
                 cards[originalCards] = card;
-                Console.WriteLine("card" + card);
-                Console.WriteLine("cardsorigin" + cards[originalCards]);
             }
         }
 
         public class Program
         {
-            public static void Main(string[] args)
+            public static void Main()
             {
                 int total = Deal();
                 Hit(total);
+                Dealer();
                 Console.ReadLine();
             }
             public static int Deal()
@@ -68,7 +67,9 @@ namespace BlackJack
                 int total = 0;
                 Deck myDeck = new Deck();
                 Card firstPlayerCard = myDeck.cards[0];
-                Card secondPlayerCard = myDeck.cards[1];
+                myDeck.cards.RemoveAt(0);
+                Card secondPlayerCard = myDeck.cards[0];
+                myDeck.cards.RemoveAt(0);
                 Console.WriteLine(firstPlayerCard.Face + " of " + firstPlayerCard.Suit);
                 total = firstPlayerCard.Value;
                 total += secondPlayerCard.Value;
@@ -82,11 +83,10 @@ namespace BlackJack
                 Console.WriteLine("hit or stand?");
                 var response = Console.ReadLine();
                 if (response == "hit") { 
-                    var rnd = new Random();
-                    var result = rnd.Next(52);
                     Deck myDeck = new Deck();
-                    total += myDeck.cards[result].Value;
-                    Console.WriteLine(myDeck.cards[result].Face + " of " + myDeck.cards[result].Suit);
+                    total += myDeck.cards[0].Value;
+                    Console.WriteLine("Total: " + total);
+                    Console.WriteLine(myDeck.cards[0].Face + " of " + myDeck.cards[0].Suit);
                     if (total > 21)
                     {
                         Console.WriteLine(total + " Bust!!!!");
@@ -97,6 +97,28 @@ namespace BlackJack
                 } else if (response == "stand")
                 {
                 Console.WriteLine(total + " Stand");
+                }
+            }
+
+            public static void Dealer()
+            {
+                int computerTotal = 0;
+                Deck myDeck = new Deck();
+                Card firstComputerCard = myDeck.cards[0];
+                myDeck.cards.RemoveAt(0);
+                Card secondComputerCard = myDeck.cards[0];
+                myDeck.cards.RemoveAt(0);
+                Console.WriteLine("Computer: " + firstComputerCard.Face + " of " + firstComputerCard.Suit);
+                computerTotal = firstComputerCard.Value;
+                computerTotal += secondComputerCard.Value;
+                Console.WriteLine("Computer: " + secondComputerCard.Face + " of " + secondComputerCard.Suit);
+                Console.WriteLine("Computer Total: " + computerTotal);
+                while(computerTotal < 17)
+                {
+                    computerTotal += myDeck.cards[0].Value;
+                    Console.WriteLine(myDeck.cards[0].Face + " of " + myDeck.cards[0].Suit);
+                    Console.WriteLine("Computer Total: " + computerTotal);
+                    myDeck.cards.RemoveAt(0);
                 }
             }
         }
