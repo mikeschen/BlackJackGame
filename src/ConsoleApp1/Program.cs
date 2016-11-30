@@ -20,6 +20,14 @@ namespace BlackJack
         public int Value { get; set; }
     }
 
+    class Dealer
+    {
+        public Dealer()
+        {
+
+        }
+    }
+
     class Deck
     {
         private List<Card> cards;
@@ -57,10 +65,30 @@ namespace BlackJack
         {
             public static void Main()
             {
-                int total = Deal();
-                Hit(total);
-                Dealer();
-                Console.ReadLine();
+                int playerTotal = Deal();
+                playerTotal = Hit(playerTotal);
+                if (playerTotal > 21)
+                {
+                    Console.WriteLine("Player Loses!");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    int compTotal = Dealer();
+                    if (compTotal > 21) {
+                        Console.WriteLine("Computer Loses!");
+                    } else if (playerTotal == compTotal)
+                    {
+                        Console.WriteLine("Push");
+                    } else if (playerTotal > compTotal)
+                    {
+                        Console.WriteLine("Player Wins!!!");
+                    } else
+                    {
+                        Console.WriteLine("Computer Wins!!!");
+                    }
+                    Console.ReadLine();
+                }
             }
             public static int Deal()
             {
@@ -78,7 +106,7 @@ namespace BlackJack
                 return total;
             }
 
-            public static void Hit(int total)
+            public static int Hit(int total)
             {
                 Console.WriteLine("hit or stand?");
                 var response = Console.ReadLine();
@@ -98,9 +126,10 @@ namespace BlackJack
                 {
                 Console.WriteLine(total + " Stand");
                 }
+                return total;
             }
 
-            public static void Dealer()
+            public static int Dealer()
             {
                 int computerTotal = 0;
                 Deck myDeck = new Deck();
@@ -120,6 +149,7 @@ namespace BlackJack
                     Console.WriteLine("Computer Total: " + computerTotal);
                     myDeck.cards.RemoveAt(0);
                 }
+                return computerTotal;
             }
         }
     }
