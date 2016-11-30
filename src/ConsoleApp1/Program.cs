@@ -20,14 +20,6 @@ namespace BlackJack
         public int Value { get; set; }
     }
 
-    class Dealer
-    {
-        public Dealer()
-        {
-
-        }
-    }
-
     class Deck
     {
         private List<Card> cards;
