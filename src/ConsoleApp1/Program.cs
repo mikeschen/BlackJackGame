@@ -32,7 +32,10 @@ namespace BlackJack
                 for(int j = 0; j < 13; j++)
                 {
                     cards.Add(new Card() { Suit = (Suit)i, Face = (Face)j });
-                    if (j <= 8)
+                    if(j == 0)
+                    {
+                        cards[cards.Count - 1].Value = 11;
+                    } else if (j <= 8)
                     {
                         cards[cards.Count - 1].Value = j + 1;
                     } else
